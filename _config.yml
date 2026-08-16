@@ -1,6 +1,4 @@
-title: A Mixed-Source Machine Learning Framework 
-for Predicting Box Office Revenue and Audience 
-Rating Before Release 
+title: A Mixed-Source Machine Learning Framework for Predicting Box Office Revenue and Audience Rating Before Release 
 logo: assets/images/profile_pic.png
 remote_theme: pages-themes/minimal@v0.2.0
 plugins: 
