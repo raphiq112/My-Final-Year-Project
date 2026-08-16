@@ -1,0 +1,79 @@
+{
+  "revenue_model": {
+    "Random Forest": {
+      "MAE": 171497437.77845356,
+      "RMSE": 258947160.6942924,
+      "R2": 0.29318897753188367
+    },
+    "XGBoost": {
+      "MAE": 168831942.17803025,
+      "RMSE": 233065680.75565195,
+      "R2": 0.42741803816305424
+    }
+  },
+  "rating_model": {
+    "Random Forest": {
+      "MAE": 0.45569062599326715,
+      "RMSE": 0.5177394990225997,
+      "R2": 0.22512585517560413
+    },
+    "XGBoost": {
+      "MAE": 0.48383841037750236,
+      "RMSE": 0.5626312537453442,
+      "R2": 0.0849258686670048
+    }
+  },
+  "ablation_revenue": {
+    "Base only": {
+      "R2": 0.381868433712817,
+      "MAE": 167475572.24184573
+    },
+    "+ Reddit": {
+      "R2": 0.26620249086907577,
+      "MAE": 176942637.52293843
+    },
+    "+ YouTube": {
+      "R2": 0.3679265282802957,
+      "MAE": 169233597.3368369
+    },
+    "+ Reddit + YouTube": {
+      "R2": 0.3234661123828203,
+      "MAE": 171483206.24142885
+    }
+  },
+  "ablation_rating": {
+    "Base only": {
+      "R2": 0.24330475866405155,
+      "MAE": 0.41477125331377024
+    },
+    "+ Reddit": {
+      "R2": 0.24512244745436973,
+      "MAE": 0.4233239640912461
+    },
+    "+ YouTube": {
+      "R2": 0.23087667974960235,
+      "MAE": 0.41911952481667003
+    },
+    "+ Reddit + YouTube": {
+      "R2": 0.2311401784759748,
+      "MAE": 0.4250737237297537
+    }
+  },
+  "success_label_distribution": {
+    "\ud83c\udfc6 Blockbuster Hit": 79,
+    "\ud83c\udfad Critical Darling": 43,
+    "\ud83d\udcc9 Flop": 25,
+    "\ud83d\udcb0 Commercial Success": 14
+  },
+  "thresholds": {
+    "revenue_multiplier": 2.5,
+    "rating_threshold": 7.0
+  },
+  "dataset": {
+    "revenue_rows": 161,
+    "rating_rows": 197,
+    "features": 49,
+    "reddit_coverage": 168,
+    "youtube_comment_coverage": 171
+  }
+}
