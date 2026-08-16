@@ -5,7 +5,7 @@ A machine learning system that predicts a movie's **box office revenue (USD)** a
 Final Year Project — Bachelor of Computer Science (Hons.), College of Computing, Informatics and Mathematics, Universiti Teknologi MARA.
 Supervised by Mohammad Bakri bin Che Haron.
 
-> 📄 Full thesis writeup: [`docs/Final_Year_Project_RafiqHakeemiRoslan.pdf`](docs/Final_Year_Project_RafiqHakeemiRoslan.pdf)
+> 📄 Full thesis writeup: [`docs/Final_Year_Project_RafiqHakeemiRoslan.pdf`](docs/Final_Report_RafiqHakeemiRoslan.pdf)
 
 ---
 
