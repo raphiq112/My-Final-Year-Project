@@ -62,8 +62,8 @@ Unreleased movies face a **cold-start problem**: no user ratings, no review hist
               └────────────┬─────────────┘
                             ▼
           ┌─────────────────────────────────┐
-          │  Random Forest / Gradient        │
-          │  Boosting  (Revenue · Rating)    │
+          │  Random Forest / XGBoost         |  
+          |      (Revenue · Rating)          │
           └────────────────┬─────────────────┘
                             ▼
           ┌─────────────────────────────────┐
@@ -113,7 +113,7 @@ Key decisions:
 Two model families, trained separately for each target (4 models total):
 
 - **Random Forest** (`RandomForestRegressor`)
-- **Gradient Boosting** (`GradientBoostingRegressor` — used as a drop-in stand-in for XGBoost since `xgboost` wasn't available in the training environment; the code path is a one-line swap back to `xgb.XGBRegressor` if needed)
+- **XGBoost** (`XGBoost`)
 
 Revenue is trained in **log space** (`log1p`) and back-transformed (`expm1`) for reporting and inference. Rating is trained directly on the 1–10 scale. Evaluation uses MAE, RMSE, and R² on a held-out 20% test split, plus 5-fold cross-validation for a more stable generalisation estimate.
 
@@ -139,14 +139,14 @@ When budget is unknown, a **$100M** revenue proxy threshold is used instead of t
 | Model | R² (CV) | MAE (log) | RMSE (log) |
 |---|---|---|---|
 | Random Forest | 0.4455 | 1.1343 | 1.5833 |
-| Gradient Boosting | 0.4001 | 1.1879 | 1.6405 |
+| XGBoost | 0.4001 | 1.1879 | 1.6405 |
 
 **Rating model** (1–10 scale)
 
 | Model | R² (CV) | MAE | RMSE |
 |---|---|---|---|
 | Random Forest | 0.1028 | 0.5096 | 0.6804 |
-| Gradient Boosting | 0.1463 | 0.4793 | 0.6494 |
+| XGBoost | 0.1463 | 0.4793 | 0.6494 |
 
 **Ablation study** (Random Forest, fixed config, isolating feature-source effects): adding Reddit and/or YouTube sentiment features did **not** consistently outperform the metadata-only baseline at this dataset size (197 movies). The gains seen from the full boosted model appear driven more by model tuning than by the social features themselves. This is discussed candidly in Chapter 5 of the thesis rather than glossed over.
 
@@ -181,7 +181,7 @@ When budget is unknown, a **$100M** revenue proxy threshold is used instead of t
 │   └── .streamlit/
 │       └── secrets.toml                   # API keys — NEVER commit this file
 ├── docs/
-│   └── Final_Year_Project_RafiqHakeemiRoslan.pdf
+│   └── Final_Report_RafiqHakeemiRoslan.pdf
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -249,7 +249,6 @@ pip install -r requirements.txt
 
 Documented candidly here (and in Chapter 5/6 of the thesis) rather than hidden, since they matter for interpreting results honestly:
 
-- **"XGBoost" in docs, `GradientBoostingRegressor` in code** — `xgboost` wasn't available in the training environment, so `GradientBoostingRegressor` was substituted as a near-equivalent gradient-boosted tree model. The thesis documents this explicitly.
 - **Official Reddit API access was rejected** — Reddit data is collected via Arctic Shift, a community-maintained archival mirror, instead of the official API.
 - **Small dataset (197 movies)** — limits how confidently the ablation study can isolate the marginal value of social sentiment features; results should be read as suggestive, not definitive.
 - **Rating R² is low (0.10–0.15, cross-validated)** and roughly flat across all feature configurations — audience rating is genuinely hard to predict from pre-release signals alone.
@@ -270,7 +269,7 @@ Documented candidly here (and in Chapter 5/6 of the thesis) rather than hidden, 
 ## Tech Stack
 
 - **Language:** Python
-- **ML:** scikit-learn (Random Forest, Gradient Boosting, `MultiLabelBinarizer`, `SimpleImputer`), VADER (`vaderSentiment`)
+- **ML:** scikit-learn (Random Forest, XGBoost, `MultiLabelBinarizer`, `SimpleImputer`), VADER (`vaderSentiment`)
 - **App:** Streamlit
 - **Data:** pandas, NumPy
 - **Viz:** matplotlib, seaborn
